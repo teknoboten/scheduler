@@ -7,6 +7,11 @@ import "index.scss";
 
 import Button from "components/Button";
 
+// function handleClick() {
+//   console.log('you clicked me!');
+// }
+
+
 storiesOf("Button", module)
   .addParameters({
     backgrounds: [{ name: "dark", value: "#222f3e", default: true }]
