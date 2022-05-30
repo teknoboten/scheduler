@@ -48,6 +48,7 @@ export function getInterview(state, interview) {
   }
 
   return { ...interview, interviewer: {...state.interviewers[interview.interviewer]} }
+  // return 
 
 }
 
@@ -72,4 +73,4 @@ export function getAppointmentsForDay(state, day) {
 }
 
 
-// console.log(getInterview(state, state.appointments["1"].interview));
+// console.log(getInterview(state, state.appointments["3"].interview));
