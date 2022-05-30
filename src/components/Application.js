@@ -9,7 +9,6 @@ import Appointment from "./Appointment";
 import { getAppointmentsForDay, getInterview } from '../helpers/selectors'
 
 import axios from 'axios';
-// import { NULL } from "node-sass";
 
 
 const interviewers = [
@@ -21,35 +20,42 @@ const interviewers = [
 ];
 
 
+
+
 export default function Application(props) {
 
-  const [ state, setState ] = useState({
-    day: "Monday",
-    days: [],
-    appointments: {},
-    interviewers: {}
-  })
+  const [ state, setState ] = useState({ day: "Monday", days: [], appointments: {}, interviewers: {}});
+  // const [ interviewer, setInterviewer ] = useState('');
 
+  function bookInterview(id, interview) {
+
+    const appointment = {
+      ...state.appointments[id],
+      interview: {...interview}
+    };
+
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+
+    setState({...state, appointments});
+  }
+
+
+
+
+  
+  const setDay = day => setState({ ...state, day });
   const dailyAppointments = getAppointmentsForDay(state, state.day);
 
   const schedule = dailyAppointments.map((apt) => {
     const interview = getInterview(state, apt.interview);
-
-    return(
-      <Appointment key={apt.id} id={apt.id} time={apt.time} interview={interview}/>
-
-    )
-
-
-  // <Appointment key={apt.id} {...apt} />)
-
+    // return( <Appointment key={apt.id} id={apt.id} time={apt.time} interview={interview} bookInterview={bookInterview}/>)
+    return( <Appointment key={apt.id} id={apt.id} time={apt.time} interview={interview} bookInterview={bookInterview} interviewers={interviewers}/>)
   });
 
-
-  const setDay = day => setState({ ...state, day });
-
-  const [ interviewer, setInterviewer ] = useState('');
-
+ 
   useEffect(() => {
     Promise.all([
       axios.get('/api/days'),
@@ -60,6 +66,8 @@ export default function Application(props) {
     })
   }, [])
 
+
+
   return (
     <main className="layout">
       <section className="sidebar">
@@ -68,7 +76,7 @@ export default function Application(props) {
     <hr className="sidebar__separator sidebar--centered" />
     <nav className="sidebar__menu">
     <DayList days={state.days} value={state.day} onChange={setDay}/>
-    <InterviewerList value={interviewer} interviewers={interviewers} onChange={setInterviewer} />
+    {/* <InterviewerList value={interviewer} interviewers={interviewers} onChange={setInterviewer} /> */}
     </nav>
     <img className="sidebar__lhl sidebar--centered" src="images/lhl.png" alt="Lighthouse Labs"/>
 
@@ -77,7 +85,7 @@ export default function Application(props) {
 
         {/* {dailyAppointments.map(apt => <Appointment key={apt.id} {...apt} />)} */}
         {schedule}
-        <Appointment key="last" time="5pm" />
+        <Appointment key="last" time="5pm"/>
 
       </section>
     </main>
