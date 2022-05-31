@@ -52,13 +52,10 @@ export default function Application(props) {
     const appointments = {...state.appointments, [id]: appointment };
 
     return axios.delete(`/api/appointments/${id}`)
-      .then(() => {         
-        setState(prev => {
+      .then(() => { setState(prev => {
           return {...state, appointments}
-        });
-    })
+      })})
   }
-
 
 
   return (
