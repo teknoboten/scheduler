@@ -16,7 +16,6 @@ export default function useVisualMode(initialMODE) {
       history.push(newMode)
       setMode(newMode)
 
-
     } else {
 
       history.push(newMode)

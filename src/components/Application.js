@@ -20,7 +20,7 @@ export default function Application(props) {
 
   const schedule = dailyAppointments.map((apt) => {
     const interview = getInterview(state, apt.interview);
-    return( <Appointment key={apt.id} id={apt.id} time={apt.time} interview={interview} bookInterview={bookInterview} interviewers={interviewers}/>)
+    return( <Appointment key={apt.id} id={apt.id} time={apt.time} interview={interview} bookInterview={bookInterview} interviewers={interviewers} cancelInterview={cancelInterview}/>)
   });
 
   useEffect(() => {
@@ -39,9 +39,27 @@ export default function Application(props) {
     const appointments = {...state.appointments, [id]: appointment };
 
     return axios.put(`/api/appointments/${id}`, {interview})
-      .then(() => { setState(prev =>{ return {...prev, appointments}});
+      .then(() => { 
+        setState(prev =>{ 
+          return {...prev, appointments}
+      });
     })
   }
+
+  function cancelInterview(id) {
+
+    const appointment = {...state.appointments[id], interview: null };
+    const appointments = {...state.appointments, [id]: appointment };
+
+    return axios.delete(`/api/appointments/${id}`)
+      .then(() => {         
+        setState(prev => {
+          return {...state, appointments}
+        });
+    })
+  }
+
+
 
   return (
     <main className="layout">
