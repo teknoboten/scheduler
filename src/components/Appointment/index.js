@@ -25,10 +25,12 @@ export default function Appointment(props){
 
 
   function save(name, interviewer){
-
+    transition(SAVE);
     const interview = { student: name, interviewer };
     props.bookInterview(props.id, interview)
-    transition(SHOW);
+    //delay execution????
+    // transition(SHOW);
+    
 
   }
 
@@ -41,6 +43,7 @@ export default function Appointment(props){
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)}/>}
       {mode === SHOW && <Show student={props.interview.student} interviewer={props.interview.interviewer} /> }
       {mode === CREATE && <Form interviewers={props.interviewers} onCancel={back} onSave={save}/>}
+      {mode === SAVE && <Status />}
   
     </article>
 
