@@ -20,32 +20,26 @@ const interviewers = [
 ];
 
 
-
-
 export default function Application(props) {
 
   const [ state, setState ] = useState({ day: "Monday", days: [], appointments: {}, interviewers: {}});
   // const [ interviewer, setInterviewer ] = useState('');
 
+  // Within bookInterview, make a PUT request to the /api/appointments/:id endpoint to update the database with the interview data.
+
+
   function bookInterview(id, interview) {
 
-    const appointment = {
-      ...state.appointments[id],
-      interview: {...interview}
-    };
+    const appointment = {...state.appointments[id], interview: {...interview} };
+    const appointments = {...state.appointments, [id]: appointment };
 
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment
-    };
+    axios.put(`/api/appointments/${appointment.id}`, {...appointment}).then((response) => console.log(response))
+
 
     setState({...state, appointments});
   }
 
 
-
-
-  
   const setDay = day => setState({ ...state, day });
   const dailyAppointments = getAppointmentsForDay(state, state.day);
 
