@@ -28,10 +28,7 @@ export default function Appointment(props){
     transition(SAVE);
     const interview = { student: name, interviewer };
     props.bookInterview(props.id, interview)
-    //delay execution????
-    // transition(SHOW);
-    
-
+    .then(() => transition(SHOW))
   }
 
   return (
