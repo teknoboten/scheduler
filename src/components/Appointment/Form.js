@@ -5,6 +5,8 @@ import InterviewerList from 'components/InterviewerList';
 
 export default function Form(props){
 
+  // const [ student, setStudent ] = useState(props.interview.student || "");
+  // const [ interviewer, setInterviewer ] = useState(props.interview.interviewer.id || null);
   const [ student, setStudent ] = useState(props.student || "");
   const [ interviewer, setInterviewer ] = useState(props.interviewer || null);
 
@@ -17,6 +19,7 @@ export default function Form(props){
     reset();
     props.onCancel();    
   };
+
 
   return(
 

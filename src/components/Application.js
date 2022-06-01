@@ -35,7 +35,10 @@ export default function Application(props) {
 
   const schedule = dailyAppointments.map((apt) => {
     const interview = getInterview(state, apt.interview);
-    return( <Appointment key={apt.id} id={apt.id} time={apt.time} interview={interview} bookInterview={bookInterview} interviewers={interviewers} cancelInterview={cancelInterview}/>)
+    return( 
+    <Appointment key={apt.id} id={apt.id} time={apt.time} interviewers={interviewers}
+    interview={interview} bookInterview={bookInterview} cancelInterview={cancelInterview}
+    />)
   });
 
   function bookInterview(id, interview) {
@@ -59,6 +62,12 @@ export default function Application(props) {
         return {...state, appointments}
     })})
   }
+
+  // function editInterview(id) {
+
+
+
+  // }
 
 
 
