@@ -3,26 +3,23 @@ import React, { useState, useEffect } from "react";
 import "components/Application.scss";
 
 import DayList from "./DayList";
-// import InterviewerList from "./InterviewerList";
 import Appointment from "./Appointment";
-
 import { getAppointmentsForDay, getInterview, getInterviewersForDay } from '../helpers/selectors'
-
 import axios from 'axios';
+
+
+
 
 export default function Application(props) {
 
-  const [ state, setState ] = useState({ day: "Monday", days: [], appointments: {}, interviewers: {}});
 
+// set state //
+  const [ state, setState ] = useState({ day: "Monday", days: [], appointments: {}, interviewers: {}});
   const setDay = day => setState({ ...state, day });
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   const interviewers = getInterviewersForDay(state, state.day);
 
-  const schedule = dailyAppointments.map((apt) => {
-    const interview = getInterview(state, apt.interview);
-    return( <Appointment key={apt.id} id={apt.id} time={apt.time} interview={interview} bookInterview={bookInterview} interviewers={interviewers} cancelInterview={cancelInterview}/>)
-  });
-
+// effects //
   useEffect(() => {
     Promise.all([
       axios.get('/api/days'),
@@ -33,17 +30,23 @@ export default function Application(props) {
     })
   }, [])
 
+
+// data helpers //
+
+  const schedule = dailyAppointments.map((apt) => {
+    const interview = getInterview(state, apt.interview);
+    return( <Appointment key={apt.id} id={apt.id} time={apt.time} interview={interview} bookInterview={bookInterview} interviewers={interviewers} cancelInterview={cancelInterview}/>)
+  });
+
   function bookInterview(id, interview) {
 
     const appointment = {...state.appointments[id], interview: {...interview} };
     const appointments = {...state.appointments, [id]: appointment };
 
     return axios.put(`/api/appointments/${id}`, {interview})
-      .then(() => { 
-        setState(prev =>{ 
-          return {...prev, appointments}
-      });
-    })
+      .then(() => { setState(prev => { 
+        return {...prev, appointments}
+    })})
   }
 
   function cancelInterview(id) {
@@ -53,9 +56,13 @@ export default function Application(props) {
 
     return axios.delete(`/api/appointments/${id}`)
       .then(() => { setState(prev => {
-          return {...state, appointments}
-      })})
+        return {...state, appointments}
+    })})
   }
+
+
+
+
 
 
   return (
