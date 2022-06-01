@@ -47,9 +47,11 @@ export default function Application(props) {
     const appointments = {...state.appointments, [id]: appointment };
 
     return axios.put(`/api/appointments/${id}`, {interview})
-      .then(() => { setState(prev => { 
+    .then(() => {
+      setState(prev => { 
         return {...prev, appointments}
-    })})
+      })
+    })
   }
 
   function cancelInterview(id) {
@@ -63,20 +65,9 @@ export default function Application(props) {
     })})
   }
 
-  // function editInterview(id) {
-
-
-
-  // }
-
-
-
-
-
-
   return (
     <main className="layout">
-      <section className="sidebar">
+    <section className="sidebar">
 
     <img className="sidebar--centered" src="images/logo.png" alt="Interview Scheduler"/>
     <hr className="sidebar__separator sidebar--centered" />
@@ -85,13 +76,13 @@ export default function Application(props) {
     </nav>
     <img className="sidebar__lhl sidebar--centered" src="images/lhl.png" alt="Lighthouse Labs"/>
 
-      </section>
-      <section className="schedule">
+    </section>
+    <section className="schedule">
 
-        {schedule}
-        <Appointment key="last" time="5pm"/>
+      {schedule}
+      <Appointment key="last" time="5pm"/>
 
-      </section>
+    </section>
     </main>
   );
 }
