@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from 'axios';
+import { __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED } from "react-dom";
 
 
 
@@ -11,7 +12,9 @@ useEffect(() => {
     axios.get('/api/appointments'),
     axios.get('/api/interviewers')
   ]).then((all) => {
+
     setState(prev => ({...prev, days: all[0].data, appointments: all[1].data, interviewers: all[2].data}))
+
   })
 }, [])
 
@@ -19,15 +22,35 @@ const [ state, setState ] = useState({ day: "Monday", days: [], appointments: {}
 const setDay = day => setState({ ...state, day });
 
 
+function updateSpots (actionType){
+
+  const days = state.days.map(day => {
+    if (day.name === state.day){
+      if (actionType === "bookInterview") {
+        return { ...day, spots: day.spots - 1 }
+      }
+      return { ...day, spots: day.spots + 1 }
+    }
+    return {...day}
+  })
+  return days;
+}
+
+
+
 function bookInterview(id, interview) {
+
 
   const appointment = {...state.appointments[id], interview: {...interview} };
   const appointments = {...state.appointments, [id]: appointment };
 
   return axios.put(`/api/appointments/${id}`, {interview})
   .then(() => {
+
+    const days = updateSpots("bookInterview"); //returns a new day object with updated spots
+
     setState(prev => { 
-      return {...prev, appointments}
+      return {...prev, appointments, days}
     })
   })
 }
@@ -38,8 +61,10 @@ function cancelInterview(id) {
   const appointments = {...state.appointments, [id]: appointment };
 
   return axios.delete(`/api/appointments/${id}`)
-    .then(() => { setState(prev => {
-      return {...state, appointments}
+    .then(() => { 
+      const days = updateSpots(); 
+      setState(prev => {
+      return {...state, appointments, days}
   })})
 }
 
