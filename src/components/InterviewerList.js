@@ -1,10 +1,10 @@
 import React from "react";
-// import classNames from "classnames";
+import PropTypes from 'prop-types';
 
 import InterviewerListItem from "./InterviewerListItem";
 import 'components/InterviewerList.scss';
 
-export default function InterviewerList(props){
+function InterviewerList(props){
 
 return(
   <ul>
@@ -26,5 +26,8 @@ return(
   </ul>
   )}
 
+  InterviewerList.propTypes = {
+    interviewers: PropTypes.array
+  };
 
-  // onChange={() => props.onChange(int.id)} /> )}
+  export default InterviewerList;
