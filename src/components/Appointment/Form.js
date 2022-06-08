@@ -5,14 +5,14 @@ import InterviewerList from 'components/InterviewerList';
 
 export default function Form(props){
 
-  // const [ student, setStudent ] = useState(props.interview.student || "");
-  // const [ interviewer, setInterviewer ] = useState(props.interview.interviewer.id || null);
   const [ student, setStudent ] = useState(props.student || "");
   const [ interviewer, setInterviewer ] = useState(props.interviewer || null);
+  const [ error, setError ] = useState("")
 
   const reset = () => {
     setStudent("");
     setInterviewer(null);
+    setError(null);
   }
 
   const cancel = () => {
@@ -20,6 +20,17 @@ export default function Form(props){
     props.onCancel();    
   };
 
+  const validate = () => {
+    if (student === ""){
+      setError("student name cannot be blank");
+      return;
+    }
+    if (interviewer === null){
+      setError("please select an interviewer");
+      return;
+    }
+    props.onSave(student, interviewer);
+  }
 
   return(
 
@@ -34,8 +45,11 @@ export default function Form(props){
       placeholder="Enter Student Name"
       value={student}
       onChange={(event) => setStudent(event.target.value)}
+      data-testid="student-name-input"
     />
   </form>
+  
+  <section className="appointment__validation">{error}</section>
   
   <InterviewerList onChange={(id) => setInterviewer(id)} interviewers={props.interviewers} value={interviewer}/>
   </section>
@@ -43,8 +57,9 @@ export default function Form(props){
   <section className="appointment__card-right">
   <section className="appointment__actions">
     
-    <Button danger onClick={() => props.onCancel()}>Cancel</Button>
-    <Button confirm onClick={() => props.onSave(student, interviewer)}>Save</Button>
+    {/* <Button danger onClick={() => props.onCancel()}>Cancel</Button> */}
+    <Button danger onClick={() => cancel()}>Cancel</Button>
+    <Button confirm onClick={() => validate(student, interviewer)}>Save</Button>
   
   </section>
   </section>
@@ -52,3 +67,4 @@ export default function Form(props){
 
   )
 }
+
