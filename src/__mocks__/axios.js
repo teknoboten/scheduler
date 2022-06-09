@@ -55,7 +55,7 @@ const fixtures = {
 
 
 const get = jest.fn(url => {
-  if (url === "localhost:8001/api/days") {
+  if (url === "http://localhost:8001/api/days") {
     return Promise.resolve({
       status: 200,
       statusText: "OK",
@@ -63,7 +63,7 @@ const get = jest.fn(url => {
     });
   }
 
-  if (url === "localhost:8001/api/days") {
+  if (url === "http://localhost:8001/api/appointments") {
     /* Resolve appointments data */
     return Promise.resolve({
       status: 200,
@@ -72,14 +72,14 @@ const get = jest.fn(url => {
     });  
   }
 
-  if (url === "localhost:8001/api/days") {
+  if (url === "http://localhost:8001/api/interviews") {
     /* Resolve interviewers data */
     return Promise.resolve({
       status: 200,
       statusText: "OK",
-      data: fixtures.interviewers
+      data: fixtures.interviews
     });
-  }
+  } 
 
 })
 
