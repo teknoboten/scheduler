@@ -81,11 +81,17 @@ const get = (url) => {
       data: fixtures.interviewers
     });
   } 
+}
 
+const put = () => {
+  return Promise.resolve({
+    status: 204,
+    statusText: "No Content"
+  })
 }
 
 
-export default { get };
+export default { get, put };
 
 
 
