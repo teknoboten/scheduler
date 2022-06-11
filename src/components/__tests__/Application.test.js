@@ -91,100 +91,22 @@ describe("Application", () => {
     fireEvent.click(getByAltText(interview, "Edit"));
 
     // 4. update the value to "Fjord Windstar"
-    // console.log(prettyDOM(interview))
-
     const input = getByPlaceholderText(interview, "Enter Student Name" );
-
-    // console.log(prettyDOM(input));
-    // console.log(prettyDOM(day));
 
     fireEvent.change(input, { target: { value: "Fjord Windstar" }});
     fireEvent.click(getByAltText(interview, "Sylvia Palmer"));
 
     // 5. click the save button
     fireEvent.click(getByText(interview, "Save"));
-
     
     // 6. confirm the 'Saving...' element is displayed 
     expect(getByText(interview, "Saving...")).toBeInTheDocument();
 
- 
-
-
     // 7. wait until the interview with "Fjord Windstar" is displayed
     await waitForElement(() => getByText(interview, "Fjord Windstar"));
 
-    console.log(prettyDOM(input));
-    console.log(prettyDOM(day));
-
    // 8. check that the DayListItem with the text "Monday" has not changed".
-    // const day = getAllByTestId(container, "day").find(d => getByText(d, "Monday"));
-    // expect(getByText(day, "1 spot remaining")).toBeInTheDocument();
+    expect(getByText(day, "1 spot remaining")).toBeInTheDocument();
 })
 
 });
-
-  
-
-// <article
-//       class="appointment"
-//       data-testid="appointment"
-//     >
-//       <header
-//         class="appointment__time"
-//       >
-//         <h4
-//           class="text--semi-bold"
-//         >
-//           1pm
-//         </h4>
-//         <hr
-//           class="appointment__separator"
-//         />
-//       </header>
-//       <main
-//         class="appointment__card appointment__card--show"
-//       >
-//         <section
-//           class="appointment__card-left"
-//         >
-//           <h2
-//             class="text--regular"
-//           >
-//             Archie Cohen
-//           </h2>
-//           <section
-//             class="interviewer"
-//           >
-//             <h4
-//               class="text--light"
-//             >
-//               Interviewer
-//             </h4>
-//             <h3
-//               class="text--regular"
-//             >
-//               Tori Malcolm
-//             </h3>
-//           </section>
-//         </section>
-//         <section
-//           class="appointment__card-right"
-//         >
-//           <section
-//             class="appointment__actions"
-//           >
-//             <img
-//               alt="Edit"
-//               class="appointment__actions-button"
-//               src="images/edit.png"
-//             />
-//             <img
-//               alt="Delete"
-//               class="appointment__actions-button"
-//               src="images/trash.png"
-//             />
-//           </section>
-//         </section>
-//       </main>
-//     </article>

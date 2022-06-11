@@ -18,8 +18,6 @@ const [ state, setState ] = useState({ day: "Monday", days: [], appointments: {}
 const setDay = day => setState({ ...state, day });
 
 
-
-
 function updateSpots (actionType){
 
   const days = state.days.map(day => {
@@ -35,24 +33,7 @@ function updateSpots (actionType){
 }
 
 
-// function bookInterview(id, interview) {
-
-//   const appointment = {...state.appointments[id], interview: {...interview} };
-//   const appointments = {...state.appointments, [id]: appointment };
-
-//   return axios.put(`/api/appointments/${id}`, {interview})
-//   .then(() => {
-
-//     const days = updateSpots("bookInterview"); //returns a new day object with updated spots
-
-//     setState(prev => { 
-//       return {...prev, appointments, days}
-//     })
-//   })
-// }
-
-
-function bookInterview(id, interview) {
+function bookInterview(id, interview, isUpdate) {
 
   const appointment = {...state.appointments[id], interview: {...interview} };
   const appointments = {...state.appointments, [id]: appointment };
@@ -60,21 +41,14 @@ function bookInterview(id, interview) {
   return axios.put(`/api/appointments/${id}`, {interview})
   .then(() => {
 
-// check if we are editing an existing appointment
-// if yes, skip updateSpots
-
-    //if !props.interview
-  
-
-    const days = updateSpots("bookInterview"); //returns a new day object with updated spots
-
-    setState(prev => { 
-      return {...prev, appointments, days}
-    })
-  })
+  if (isUpdate) {
+    setState(prev => { return {...prev, appointments}})} 
+    
+  else {
+    const days = updateSpots("bookInterview");
+    setState(prev => { return {...prev, appointments, days}});
+  }})
 }
-
-
 
 function cancelInterview(id) {
 
@@ -89,8 +63,6 @@ function cancelInterview(id) {
   })})
 }
 
-
 return { state, setDay, bookInterview, cancelInterview };
-
 }
 

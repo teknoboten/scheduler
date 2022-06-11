@@ -46,14 +46,21 @@ export default function Appointment(props){
 
 
   function save(name, interviewer){
-    //pass another arg to book interview for edit? 
     transition(SAVE);
     const interview = { student: name, interviewer };
-    props.bookInterview(props.id, interview)
+    const isUpdate = props.interview;
+    props.bookInterview(props.id, interview, isUpdate)
     .then(() => transition(SHOW))
     .catch(() => transition(ERR_SAVE, true));
-      //we pass in the optional second arg true to prevent the history array from getting stale
+      // we pass in the optional second arg true to prevent the history array from getting stale
   }
+
+
+
+
+
+
+
 
   function cancel(id){
     transition(DELETE, true);
