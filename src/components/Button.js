@@ -15,6 +15,7 @@ export default function Button(props) {
    className={buttonClass}
    onClick={props.onClick}
    disabled={props.disabled}
+   data-cy="submit"
    >{props.children}
    </button>
    )
