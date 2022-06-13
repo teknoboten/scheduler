@@ -40,11 +40,6 @@ export default function Appointment(props){
 
 
 
-
-
-
-
-
   function save(name, interviewer){
     transition(SAVE);
     const interview = { student: name, interviewer };
@@ -54,11 +49,6 @@ export default function Appointment(props){
     .catch(() => transition(ERR_SAVE, true));
       // we pass in the optional second arg true to prevent the history array from getting stale
   }
-
-
-
-
-
 
 
 

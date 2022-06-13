@@ -6,11 +6,11 @@ import {
 
 
 import Application from "components/Application";
+import axios from "axios";
 
 afterEach(cleanup);
 
 describe("Application", () => {
-
 
   it("defaults to Monday and changes the schedule when a new day is selected", async () => {
     
@@ -108,5 +108,28 @@ describe("Application", () => {
    // 8. check that the DayListItem with the text "Monday" has not changed".
     expect(getByText(day, "1 spot remaining")).toBeInTheDocument();
 })
+
+  it("shows the save error when failing to save an appointment", () => {
+    // const axiosFakeFail = jest.fn((url) => {
+    //   return axios.put
+    // })
+
+    // const { container } = render(<Application />);
+
+    // const appointments = getAllByTestId(container, "appointment");
+    // const appointment = appointments[0];  //use this scope our tests to the first appointment node
+
+    // fireEvent.click(getByAltText(appointment, "Add"));  //pass appointment as the 'container' 
+    // const input = getByPlaceholderText(appointment, "Enter Student Name" );
+
+    // fireEvent.change(input, { target: { value: "Fjord Windstar" }});
+    // fireEvent.click(getByAltText(appointment, "Sylvia Palmer"));
+
+    // fireEvent.click(getByText(appointment, "Save"));
+
+    // axios.reject("string of literal garbage");
+    // console.log(prettyDOM(container));
+  });
+
 
 });

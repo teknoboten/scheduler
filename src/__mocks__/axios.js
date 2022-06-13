@@ -91,24 +91,24 @@ const put = () => {
   })
 }
 
+const reject = () => {
+  return Promise.reject({
+    status: 500,
+    statusText: "Herp Derp"
+  })
+}
+
 
 export default { get, 
   put, 
   delete: () => {
-    return Promise.resolve({
-      status: 204,
-      statusText: "No Content"
+ return Promise.resolve({
+    status: 204,
+    statusText: "No Content"
     })
-  }
-}
-
-
-
-
-
-
-
-
+  },
+  reject
+};
 
 
 
