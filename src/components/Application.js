@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 
-
-
 import "components/Application.scss";
 
 import { getAppointmentsForDay, getInterview, getInterviewersForDay } from '../helpers/selectors'
 import useApplicationData from "hooks/useApplicationData";
 import DayList from "./DayList";
 import Appointment from "./Appointment";
+
+
 
 
 export default function Application(props) {
@@ -18,11 +18,9 @@ export default function Application(props) {
 //map over appointment data from API to create an array of appointment components
   const schedule = getAppointmentsForDay(state, state.day).map((apt) => {
     return ( 
-    <Appointment key={apt.id} {...apt} interviewers={interviewers}
-    interview={getInterview(state, apt.interview)} bookInterview={bookInterview} cancelInterview={cancelInterview}
-    />)
+    <Appointment key={apt.id} {...apt} interviewers={interviewers} interview={getInterview(state, apt.interview)} 
+    bookInterview={bookInterview} cancelInterview={cancelInterview}/>)
   });
-
 
   return (
 

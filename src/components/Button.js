@@ -12,13 +12,11 @@ export default function Button(props) {
    });
 
    return (
-   <button 
-   className={buttonClass}
-   onClick={props.onClick}
-   disabled={props.disabled}
-   data-cy="submit"
-   >{props.children}
-   </button>
+
+   <button className={buttonClass} onClick={props.onClick}  
+   disabled={props.disabled} data-cy="submit">{props.children}
+   </button> 
+   
    )
- }
+}
  

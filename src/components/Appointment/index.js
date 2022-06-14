@@ -12,6 +12,8 @@ import Status from './Status';
 import Confirm from './Confirm';
 import Error from './Error';
 
+
+//arguments used by useVisualMode hook
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
@@ -22,32 +24,31 @@ const EDIT = "EDIT";
 const ERR_SAVE = "ERR_SAVE";
 const ERR_DELETE = "ERR_DELETE";
 
+
+
 export default function Appointment(props){
 
+
+//useVisualMode is a custom useState hook that allows the appointment component to tansition between visual modes
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
 
-  // function save(name, interviewer){
-  //   //pass another arg to book interview for edit? 
-  //   transition(SAVE);
-  //   const interview = { student: name, interviewer };
-  //   props.bookInterview(props.id, interview)
-  //   .then(() => transition(SHOW))
-  //   .catch(() => transition(ERR_SAVE, true));
-  //     //we pass in the optional second arg true to prevent the history array from getting stale
-  // }
 
 
-
+//helper function used when saving / editing an interview
   function save(name, interviewer){
     transition(SAVE);
     const interview = { student: name, interviewer };
+
+//isUpdate tells bookInterview to adjust 'spots remaining' value or not 
     const isUpdate = props.interview;
+
     props.bookInterview(props.id, interview, isUpdate)
     .then(() => transition(SHOW))
+
+// if error, we pass in the optional second arg true to prevent history ] from getting stale
     .catch(() => transition(ERR_SAVE, true));
-      // we pass in the optional second arg true to prevent the history array from getting stale
   }
 
 
