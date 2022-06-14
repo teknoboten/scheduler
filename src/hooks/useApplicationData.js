@@ -17,7 +17,6 @@ const [ state, setState ] = useState({ day: "Monday", days: [], appointments: {}
 const setDay = day => setState({ ...state, day });
 
 
-
 //refactor with conditionals??
 function updateSpots (actionType){
 

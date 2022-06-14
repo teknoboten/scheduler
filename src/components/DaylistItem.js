@@ -3,21 +3,22 @@ import classNames from "classnames";
 
 import 'components/DayListItem.scss';
 
-const formatSpots = (spots) => {
 
+//helper function used to dynamically generate correct 'spots remaining' string for each dayListItem
+const formatSpots = (spots) => {
   if (spots === 0 ) { return 'no spots remaining' };
   if (spots === 1) { return '1 spot remaining' };
   if (spots >= 2) { return `${spots} spots remaining` }
 }
 
+
 export default function DayListItem(props) {
 
-  let dayClass = classNames( 'day-list__item', 
-    {
+//conditionally apply CSS classes based on truthy / falsy prop values
+  let dayClass = classNames( 'day-list__item', {
     ' day-list__item--selected': props.selected,
     ' day-list__item--full': props.spots === 0 ? true : false
     })
-
 
   return (
     <li onClick={() => props.onChange(props.name)} className={dayClass} selected={props.selected} data-testid="day">
