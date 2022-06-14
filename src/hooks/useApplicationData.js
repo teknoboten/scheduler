@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import axios from 'axios';
-// import { __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED } from "react-dom";
 
 export default function useApplicationData(){
 
@@ -18,6 +17,8 @@ const [ state, setState ] = useState({ day: "Monday", days: [], appointments: {}
 const setDay = day => setState({ ...state, day });
 
 
+
+//refactor with conditionals??
 function updateSpots (actionType){
 
   const days = state.days.map(day => {

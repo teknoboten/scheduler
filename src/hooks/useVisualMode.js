@@ -26,6 +26,9 @@ export default function useVisualMode(initialMODE) {
   
   const back = () => {
 
+
+//refactor with conditional rendering!??! 
+
     if (history.length > 1){
 
       history.pop()
