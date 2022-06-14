@@ -1,8 +1,12 @@
 import { useState, useEffect } from "react";
 import axios from 'axios';
 
+
+
+
 export default function useApplicationData(){
 
+//useEffect queries the API server and uses the results to set state upon initial render
 useEffect(() => {
   Promise.all([
     axios.get('/api/days'),
@@ -13,12 +17,14 @@ useEffect(() => {
   }).catch(err => err.message )
 }, [])
 
+
+//set state
 const [ state, setState ] = useState({ day: "Monday", days: [], appointments: {}, interviewers: {}});
 const setDay = day => setState({ ...state, day });
 
 
 
-//refactor with conditionals??
+//helper function to increment / decrement 'spots remaining' per day
 function updateSpots (actionType){
 
   const days = state.days.map(day => {
@@ -33,7 +39,7 @@ function updateSpots (actionType){
   return days;
 }
 
-
+//helper function to update API and state when interviews are added
 function bookInterview(id, interview, isUpdate) {
 
   const appointment = {...state.appointments[id], interview: {...interview} };
@@ -50,6 +56,9 @@ function bookInterview(id, interview, isUpdate) {
     setState(prev => { return {...prev, appointments, days}});
   }})
 }
+
+
+
 
 function cancelInterview(id) {
 

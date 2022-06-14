@@ -34,15 +34,33 @@ const interviewers = [
 ];
 
 
+const days = [
+  {
+    id: 1,
+    name: "Monday",
+    spots: 2,
+  },
+  {
+    id: 2,
+    name: "Tuesday",
+    spots: 5,
+  },
+  {
+    id: 3,
+    name: "Wednesday",
+    spots: 0,
+  },
+];
+
+
 //'Appointment' is a string that gives a name to this group of stories
 //'module' is a global webpack module that enabled auto-refresh
 storiesOf("Appointment", module)  
 
-//.addParameters is a method of the storiesOf function that accepts and object of parameters
+//.addParameters is a method of the storiesOf function that accepts an object of parameters
   .addParameters({
     backgrounds: [{ name: "white", value: "#fff", default: true }]
   }) 
-  //use .add to create a new story. this one is called 'Appointment" and renders the Appointment component with no props
   .add("Appointment", () => <Appointment />)
   .add("Appointment with time", () => <Appointment time="12pm"  />)
   .add("Header", () => <Header time="12pm" />)
@@ -73,12 +91,6 @@ storiesOf("Appointment", module)
 
 
 
-
-  
-
-  
-
-
 storiesOf("Button", module)
   .addParameters({
     backgrounds: [{ name: "dark", value: "#222f3e", default: true }]
@@ -106,23 +118,6 @@ storiesOf("DayListItem", module)
     <DayListItem name="Wednesday" onChange={action("setDay")} spots={5} /> 
   ));
 
-  const days = [
-    {
-      id: 1,
-      name: "Monday",
-      spots: 2,
-    },
-    {
-      id: 2,
-      name: "Tuesday",
-      spots: 5,
-    },
-    {
-      id: 3,
-      name: "Wednesday",
-      spots: 0,
-    },
-  ];
   
   storiesOf("DayList", module)
     .addParameters({
@@ -137,8 +132,6 @@ storiesOf("DayListItem", module)
     .add("Wednesday", () => (
         <DayList days={days} value={"Wednesday"} onChange={action("setDay")} />
     ))
-
-
 
     storiesOf("InterviewerList", module)
     .addParameters({
@@ -162,20 +155,20 @@ storiesOf("DayListItem", module)
       />
     ));
 
+
+
   storiesOf("InterviewerListItem", module)
       .addParameters({
         backgrounds: [{ name: "dark", value: "#222f3e", default: true }]
       })
       .add("Unselected", () => (
         <InterviewerListItem
-      // id={interviewer.id}
       name={interviewer.name}
       avatar={interviewer.avatar}
     />
   ))
   .add("Selected", () => (
     <InterviewerListItem
-      // id={interviewer.id}
       name={interviewer.name}
       avatar={interviewer.avatar}
       selected
