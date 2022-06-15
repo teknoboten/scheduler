@@ -6,6 +6,7 @@ import { useState } from 'react';
 export default function useVisualMode(initialMODE) {
 
   const [ mode, setMode ] = useState(initialMODE)
+  // eslint-disable-next-line 
   const [ history, setHistory ] = useState([initialMODE])
 
   const transition = (newMode, replace = false) => {
@@ -23,11 +24,10 @@ export default function useVisualMode(initialMODE) {
     
     }
   }
-  
+
+
+
   const back = () => {
-
-
-//refactor with conditional rendering!??! 
 
     if (history.length > 1){
 
